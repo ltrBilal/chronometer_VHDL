@@ -9,7 +9,8 @@ entity timer_ms is
         pause : in std_logic; -- arrÃªter le comptage
         raz : in std_logic; -- remiz Ã  zÃ©ro
         count_ms : out unsigned(9 downto 0);
-        eos : out std_logic -- pour passer à  la seconde suivant (mis à  jour le TIMER_S)
+        eos : out std_logic; -- pour passer à  la seconde suivant (mis à  jour le TIMER_S)
+        enable_loading : out std_logic -- pour enregestrer  
     );
 end entity;
 
@@ -32,11 +33,15 @@ begin
 
             -- mis a jour le signal "stop_counting" pour arrÃªter le compteur
             elsif pause = '1' and stop_counting = '0' then
+                enable_loading <= '0';
+                compteur <= compteur - 1;
                 stop_counting <= '1';
                 start_counting <= '0';
 
             -- mis a jour le signal "start_counting" pour déclencher le compteur
             elsif start = '1' and start_counting = '0' then
+                enable_loading <= '1';
+                compteur <= compteur + 1;
                 start_counting <= '1';
                 stop_counting <= '0';
 
@@ -45,7 +50,7 @@ begin
                 -- si pause est préssé, on fait rien (le compteur ne s'incrémente plus)
                 if start_counting = '1' and stop_counting = '0' then -- le cas où start est préssé et pause n'est pas.
                     compteur <= compteur + 1; 
-                    if compteur = 1000 then --si le nombre de ms Ã©gale Ã  1000
+                    if compteur = 999 then --si le nombre de ms Ã©gale Ã  999
                         compteur <= 0;
                         eos_int <= '1';
                     end if;

@@ -20,6 +20,8 @@ architecture archi_chrono of chrono is
     signal cpt_s_int :  unsigned(5 downto 0);
     signal previous_rec : std_logic := '0';
     signal rec_int : std_logic := '0';
+
+    signal enable_loading_int : std_logic := '0';
 begin 
 
     process (rec, previous_rec)
@@ -40,7 +42,8 @@ begin
         start => start,
         pause => pause,
         eos => eoc_int,
-        count_ms => cpt_ms_int
+        count_ms => cpt_ms_int,
+        enable_loading => enable_loading_int
     );
 
     --instancier TIMER_S
@@ -55,22 +58,20 @@ begin
     -- instancier REG_MS
     registre_ms_inst: entity work.registre_ms(arch_reg_ms)
      port map(
-        clk => clk,
         reset => reset,
         load => rec_int,
         ms_in => cpt_ms_int,
-        ms_out => cpt_ms_out
+        ms_out => cpt_ms_out,
+        enable_loading => enable_loading_int
     );
 
     -- instancier REG_S
     registre_s_inst: entity work.registre_s(arch_reg_s)
      port map(
-        clk => clk,
         reset => reset,
         load => rec_int,
         s_in => cpt_s_int,
         s_out => cpt_s_out
     );
-
     
 end archi_chrono;

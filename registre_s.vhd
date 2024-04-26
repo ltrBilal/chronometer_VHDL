@@ -4,11 +4,10 @@ use ieee.NUMERIC_STD.all;
 
 entity registre_s is
     port (
-        clk   : in std_logic;
         reset : in std_logic;
         load : in std_logic;
         s_in : in unsigned(5 downto 0); -- pour qu'on puisse compter jusqu'à 59, on a besoin de 6 bits
-        s_out : out unsigned(5 downto 0) := (others => '0')
+        s_out : out unsigned(5 downto 0)
     );
 end entity;
 
