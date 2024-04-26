@@ -13,4 +13,10 @@ Entrées
     Reset : Remet à zéro tous les composants.
     
  
+ resultat du test 1 :
  
+ ![screen 1](capture/capt_2.png)
+ 
+ resultat du test 2 :
+ 
+ ![screen 1](capture/capt_1.png)
