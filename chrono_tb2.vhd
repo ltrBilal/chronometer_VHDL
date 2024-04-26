@@ -5,13 +5,13 @@ use ieee.NUMERIC_STD.all;
 entity chrono_tb2 is
 end entity;
 
-architecture arch_chrono_tb2 of chrono_tb is
+architecture arch_chrono_tb2 of chrono_tb2 is
 
     signal clk : std_logic;
     signal reset : std_logic;
     signal start : std_logic;
     signal pause : std_logic;
-    signal rec : std_logic; -- Enregistrement de l'état de comptage dans REGISTRE_MS et REGISTRE_S
+    signal rec : std_logic; -- Enregistrement de l'ï¿½tat de comptage dans REGISTRE_MS et REGISTRE_S
     signal cpt_ms_out : unsigned(9 downto 0);
     signal cpt_s_out : unsigned(5 downto 0);
 
@@ -42,7 +42,7 @@ begin
         reset <= '0';
         wait for 65 sec;
         reset <= '1';
-        wait for 1 ns;
+        wait for 1 sec;
         reset <= '0';
         wait;
     end process;
@@ -85,9 +85,9 @@ begin
         rec <= '0';
         wait for 20 sec;
         rec <= '1';
-        wait for 50 sec;
+        wait for 20 sec;
         rec <= '0';
-        wait for 1 sec;
+        wait for 20.5 sec;
         rec <= '1';
         wait;
     end process;
